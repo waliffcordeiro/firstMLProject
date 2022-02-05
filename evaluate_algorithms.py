@@ -7,8 +7,14 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
+
 from sklearn.model_selection import StratifiedKFold
 from sklearn.model_selection import cross_val_score
+
+from matplotlib import pyplot
 
 from import_data import returnsDataSet
 
@@ -20,7 +26,7 @@ def createValidationDataset(dataset):
     X_train, X_validation, Y_train, Y_validation = train_test_split(X, y, test_size=0.20, random_state=1)
     return (X_train, X_validation, Y_train, Y_validation)
 
-def evaluateModels(X_train, Y_train):
+def algorithmComparison(X_train, Y_train):
     # Spot Check Algorithms
     models = []
     models.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr')))
@@ -38,8 +44,25 @@ def evaluateModels(X_train, Y_train):
         results.append(cv_results)
         names.append(name)
         print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
+    
+    # Compare Algorithms
+    pyplot.boxplot(results, labels=names)
+    pyplot.title('Algorithm Comparison')
+    pyplot.show()
+
+def evaluateModels(X_validation, Y_validation):
+    # Make predictions on validation dataset
+    model = SVC(gamma='auto')
+    model.fit(X_train, Y_train)
+    predictions = model.predict(X_validation)
+    # Evaluate predictions
+    print(accuracy_score(Y_validation, predictions))
+    print(confusion_matrix(Y_validation, predictions))
+    print(classification_report(Y_validation, predictions))
 
 if __name__ == '__main__':
     _, _, dataset = returnsDataSet()
-    X_train, _, Y_train, _ = createValidationDataset(dataset)
-    evaluateModels(X_train, Y_train)
+    X_train, X_validation, Y_train, Y_validation = createValidationDataset(dataset)
+    algorithmComparison(X_train, Y_train)
+    evaluateModels(X_validation, Y_validation)
+    

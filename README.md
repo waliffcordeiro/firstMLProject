@@ -89,6 +89,16 @@ Aqui está o que vamos abordar nesta etapa:
 
 A avaliação pode ser acessada no arquivo evaluate_algorithms.py
 ____
+### Fazer previsões
+
+Devemos escolher um algoritmo para usar para fazer previsões.
+
+Os resultados da seção anterior sugerem que o SVM foi talvez o modelo mais preciso. Usaremos este modelo como nosso modelo final.
+
+Agora queremos ter uma ideia da precisão do modelo em nosso conjunto de validação.
+
+Isso nos dará uma verificação final independente sobre a precisão do melhor modelo. É importante manter um conjunto de validação para o caso de você cometer um deslize durante o treinamento, como um ajuste excessivo ao conjunto de treinamento ou um vazamento de dados. Ambas as questões resultarão em um resultado excessivamente otimista. 
+____
 
 Cada arquivo pode ser executado individualmente através do comando
 ```
