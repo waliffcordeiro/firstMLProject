@@ -50,7 +50,7 @@ def algorithmComparison(X_train, Y_train):
     pyplot.title('Algorithm Comparison')
     pyplot.show()
 
-def evaluateModels(X_train, Y_train, X_validation, Y_validation):
+def evaluateSVC(X_train, Y_train, X_validation, Y_validation):
     # Make predictions on validation dataset
     model = SVC(gamma='auto')
     model.fit(X_train, Y_train)
@@ -64,5 +64,5 @@ if __name__ == '__main__':
     _, _, dataset = returnsDataSet()
     X_train, X_validation, Y_train, Y_validation = createValidationDataset(dataset)
     algorithmComparison(X_train, Y_train)
-    evaluateModels(X_train, Y_train, X_validation, Y_validation)
+    evaluateSVC(X_train, Y_train, X_validation, Y_validation)
     
